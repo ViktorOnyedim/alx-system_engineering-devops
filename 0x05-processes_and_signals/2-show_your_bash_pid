@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-#Displays lines containing the "bash" word for easy access to bash process PID
+# Displays lines containing the "bash" word for easy access to bash process PID
+# shellcheck disable=SC2009
 ps -ef | grep bash
