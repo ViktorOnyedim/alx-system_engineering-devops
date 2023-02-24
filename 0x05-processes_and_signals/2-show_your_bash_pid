@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Displays lines containing the "bash" word for easy access to bash process PID
+ps -ef | grep bash
