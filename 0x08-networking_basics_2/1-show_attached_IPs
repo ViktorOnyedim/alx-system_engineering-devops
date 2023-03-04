@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Displays all active IPv4 IPs on the machine it's executed on
+
+# Get the list of network interfaces
+interfaces=$(ip addr | grep '^[0-9]' | awk '{print $2}' | sed 's/://' | grep -v 'lo')
+
+# Loop through each network interface and get its IP address(es)
+for interface in $interfaces; do
+	ips=$(ip addr show $interface | grep 'inet ' | awk '{print $2}')
+	echo "$ips"
+done
