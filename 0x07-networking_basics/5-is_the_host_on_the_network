@@ -7,6 +7,6 @@ if [ $# -eq 0 ]; then
 fi
 
 ip_address=$1
-echo "Pinging $ip_addres..."
+echo "Pinging $ip_address..."
 
-ping -c 5 $ip_address
+ping -c 5 "$ip_address"
