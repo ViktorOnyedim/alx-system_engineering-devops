@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Debugging nginx port 80 - Restores the default server port
+
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
