@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Configures Nginx server on an ubuntu server to:
+# - Redirect /redirect_me is redirecting to https://veekode.tech
+# - Serve a custom 404 page that contains the string "Ceci n'est pas une page"
+
+# Update the package list and install Nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
+
+# Create an index.html file with a simple message
+echo 'Hello World!' | sudo tee /var/www/html/index.html
+
+# Define the configuration for the /redirect_me
+replacement_string="server_name _;\n\n\tlocation /redirect_me {\n\t\t return 301 https://www.veekode.tech;\n\t}\n"
+sudo sed -i "s#server_name _;#$replacement_string#" /etc/nginx/sites-available/default
+
+# Create a custom 404 page and define the configuration for it
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+replacement_string="server_name _;\n\n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\tinternal;\n\t}\n"
+sudo sed -i "s#server_name _;#$replacement_string#" /etc/nginx/sites-available/default
+
+# Restart the Nginx service to apply changes
+sudo service nginx restart
