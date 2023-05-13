@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Configures Nginx server on a brand new ubuntu server so that
+# its HTTP response contains a custome header (on web-01 and web-02)
+# -> The name of the custom HTTP header must be 'X-Served-By'
+# -> The value of the custom HTTP header must be the hostname of
+#    the server Nginx is running on
+
+# Update the package list and install Nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
+
+string_replacement = "server_name _; add_header X-Served-By $(hostname)"
+
+sudo sed -i "s/server_name _;/$string_replacement/" /etc/nginx/sites-available/default
+
+# Restart the Nginx service to apply changes
+sudo service nginx restart
