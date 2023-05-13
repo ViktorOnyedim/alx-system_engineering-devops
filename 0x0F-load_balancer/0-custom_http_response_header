@@ -9,7 +9,7 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 
-string_replacement="server_name _;\n\tadd_header X-Served-By $(hostname);\n"
+string_replacement="server_name _;\n\n\tadd_header X-Served-By $(hostname);\n"
 
 sudo sed -i "s/server_name _;/$string_replacement/" /etc/nginx/sites-available/default
 
