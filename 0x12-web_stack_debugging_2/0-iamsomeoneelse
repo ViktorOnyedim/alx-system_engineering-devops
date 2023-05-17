@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Accepts on arg and runs the whoami command under the user passed as arg
+
+# Check if no user was passed
+if [ -z "$1"]
+then
+	echo "No arguments passed"
+	exit 1
+fi
+
+sudo -u "$1" whoami
