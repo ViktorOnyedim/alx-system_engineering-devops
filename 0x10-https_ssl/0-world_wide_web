@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Displays information about subdomains
+
+function display_subdomain_info ()
+{
+	domain=$1
+	subdomain=$2
+
+	# Perform DNS lookup using dig
+	dig_result=$(dig "$subdomain"."$domain")
+	record_type=$(echo "$dig_result" | awk '/^;; ANSWER SECTION:/ { getline; print $4 }')
+	destination=$(echo "$dig_result" | awk '/^;; ANSWER SECTION:/ { getline; print $5}')
+
+	echo "The subdomain $subdomain is a $record_type record and points to $destination"
+}
+
+domain=$1
+subdomain=$2
+
+default_subdomains=("www" "lb-01" "web-01" "web-02")
+
+if [ $# -eq 1 ]; then
+	for subdomain in "${default_subdomains[@]}"; do
+		display_subdomain_info "$domain" "$subdomain"
+	done
+elif [ $# -eq 2 ]; then
+	for subdomain in "${subdomain[@]}"; do
+		display_subdomain_info "$domain" "$subdomain"
+	done
+fi
