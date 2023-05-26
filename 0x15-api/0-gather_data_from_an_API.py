@@ -6,11 +6,12 @@ his/her TODO list progress.
 import requests
 from sys import argv
 
+
 def main():
     emp_id = int(argv[1])
 
     url = "https://jsonplaceholder.typicode.com/todos"
-    
+
     response = requests.get(url)
     response_json = response.json()
 
@@ -20,7 +21,7 @@ def main():
 
     for i in response_json:
         if i["userId"] == emp_id:
-            if i['completed'] == True:
+            if i['completed'] is True:
                 task_completed += 1
                 completed_titles.append(i['title'])
             else:
@@ -31,6 +32,7 @@ def main():
     print(f"Employee X is done with tasks({task_completed}/{total_tasks}):")
     for title in completed_titles:
         print(f"\t {title}")
+
 
 if __name__ == '__main__':
     main()
