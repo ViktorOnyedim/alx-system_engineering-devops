@@ -33,7 +33,6 @@ def main():
     for user in users:
         if user['id'] == emp_id:
             name = user['name']
-            
 
     print(f"Employee {name} is done with tasks({completed}/{total_tasks}):")
 
