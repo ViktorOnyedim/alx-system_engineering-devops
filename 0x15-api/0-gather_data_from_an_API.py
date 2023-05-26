@@ -10,26 +10,33 @@ from sys import argv
 def main():
     emp_id = int(argv[1])
 
-    url = "https://jsonplaceholder.typicode.com/todos"
+    todos_url = "https://jsonplaceholder.typicode.com/todos"
+    users_url = "https://jsonplaceholder.typicode.com/users"
 
-    response = requests.get(url)
-    response_json = response.json()
+    response = requests.get(todos_url).json()
+    users = requests.get(users_url).json()
 
     not_completed = 0
-    task_completed = 0
+    completed = 0
     completed_titles = []
 
-    for i in response_json:
+    for i in response:
         if i["userId"] == emp_id:
             if i['completed'] is True:
-                task_completed += 1
+                completed += 1
                 completed_titles.append(i['title'])
             else:
                 not_completed += 1
 
-    total_tasks = task_completed + not_completed
+    total_tasks = completed + not_completed
 
-    print(f"Employee X is done with tasks({task_completed}/{total_tasks}):")
+    for user in users:
+        if user['id'] == emp_id:
+            name = user['name']
+            
+
+    print(f"Employee {name} is done with tasks({completed}/{total_tasks}):")
+
     for title in completed_titles:
         print(f"\t {title}")
 
