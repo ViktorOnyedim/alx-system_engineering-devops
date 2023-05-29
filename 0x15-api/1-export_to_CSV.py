@@ -16,7 +16,7 @@ def main():
 
     todos = requests.get(todos_url, params={"userId": emp_id}).json()
     user = requests.get(f"{users_url}/{emp_id}").json()
-    name = user.get("name")
+    name = user.get("username")
 
     filename = f"{emp_id}.csv"
     with open(filename, 'w', newline='') as file:
