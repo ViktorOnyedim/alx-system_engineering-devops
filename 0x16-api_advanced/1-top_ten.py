@@ -22,3 +22,4 @@ def top_ten(subreddit):
         return
     data = response.json().get("data")
     [print(post.get("data").get("title")) for post in data.get("children")]
+
